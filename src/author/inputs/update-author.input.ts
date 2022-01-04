@@ -1,9 +1,9 @@
 import { CreateAuthorInput } from './create-author.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field, Int, PartialType, ID } from '@nestjs/graphql';
 
 @InputType()
 export class UpdateAuthorInput extends PartialType(CreateAuthorInput) {
-  @Field({ description: 'Author id' })
+  @Field(() => ID)
   id: string;
 
   @Field()

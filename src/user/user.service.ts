@@ -3,31 +3,28 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateUserInput } from './inputs/create-book.input';
 import { UpdateUserInput } from './inputs/update-user.input';
-import { User } from './interfaces/user.interface';
+import { IUser } from './interfaces/user.interface';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel('User') private userModel: Model<User>) {}
-  async create(createUserInput: CreateUserInput): Promise<User | string> {
-    return 'This action adds a new user';
+  constructor(@InjectModel('User') private userModel: Model<IUser>) {}
+  async create(createUserInput: CreateUserInput): Promise<IUser> {
+    return await new this.userModel(createUserInput).save();
   }
 
-  async findAll(): Promise<User[] | string> {
-    return `This action returns all user`;
+  async findAll(): Promise<IUser[]> {
+    return await this.userModel.find();
   }
 
-  async findOne(id: string): Promise<User | string> {
-    return `This action returns a #${id} user`;
+  async findOne(id: string): Promise<IUser> {
+    return await this.userModel.findById(id);
   }
 
-  async update(
-    id: string,
-    updateUserInput: UpdateUserInput,
-  ): Promise<User | string> {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserInput: UpdateUserInput): Promise<IUser> {
+    return await this.userModel.findByIdAndUpdate(id, updateUserInput);
   }
 
-  async remove(id: string): Promise<User | string> {
-    return `This action removes a #${id} user`;
+  async remove(id: string): Promise<IUser> {
+    return await this.userModel.findByIdAndDelete(id);
   }
 }

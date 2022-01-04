@@ -1,9 +1,9 @@
 import { UserObject } from './create-user.dto';
-import { Field, PartialType, ObjectType } from '@nestjs/graphql';
+import { Field, PartialType, ObjectType, ID } from '@nestjs/graphql';
 
 @ObjectType()
 export class UpdateUser extends PartialType(UserObject) {
-  @Field()
+  @Field(() => ID)
   id: string;
 
   @Field()

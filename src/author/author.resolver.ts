@@ -15,13 +15,13 @@ export class AuthorResolver {
     return this.authorService.create(createAuthorInput);
   }
 
-  @Query(() => [AuthorObject], { name: 'author' })
-  findAll() {
+  @Query(() => [AuthorObject])
+  findAllAuthors() {
     return this.authorService.findAll();
   }
 
-  @Query(() => AuthorObject, { name: 'author' })
-  findOne(@Args('id') id: string) {
+  @Query(() => AuthorObject)
+  findAuthor(@Args('id') id: string) {
     return this.authorService.findOne(id);
   }
 

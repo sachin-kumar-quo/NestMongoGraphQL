@@ -1,7 +1,19 @@
-import { Int, Field, ObjectType } from '@nestjs/graphql';
+import { Int, Field, ObjectType, ID } from '@nestjs/graphql';
 
 @ObjectType()
 export class BookObject {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Field(() => ID)
+  id: string;
+
+  @Field()
+  name: string;
+
+  @Field()
+  publisher: string;
+
+  @Field()
+  published: Date;
+
+  @Field()
+  author: string;
 }

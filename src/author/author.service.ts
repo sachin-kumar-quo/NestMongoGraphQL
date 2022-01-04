@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateAuthorInput } from './inputs/create-author.input';
 import { UpdateAuthorInput } from './inputs/update-author.input';
-
+import { IAuthor } from './interfaces/author.interface';
 @Injectable()
 export class AuthorService {
-  create(createAuthorInput: CreateAuthorInput) {
-    return 'This action adds a new author';
+  constructor(@InjectModel('Author') private AuthorModel: Model<IAuthor>) {}
+
+  async create(createAuthorInput: CreateAuthorInput): Promise<IAuthor> {
+    return await new this.AuthorModel(createAuthorInput).save();
   }
 
-  findAll() {
-    return `This action returns all author`;
+  async findAll(): Promise<IAuthor[]> {
+    return await this.AuthorModel.find();
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} author`;
+  async findOne(id: string): Promise<IAuthor> {
+    return await this.AuthorModel.findById(id);
   }
 
-  update(id: string, updateAuthorInput: UpdateAuthorInput) {
-    return `This action updates a #${id} author`;
+  async update(
+    id: string,
+    updateAuthorInput: UpdateAuthorInput,
+  ): Promise<IAuthor> {
+    return await this.AuthorModel.findByIdAndUpdate(id, updateAuthorInput);
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} author`;
+  async remove(id: string): Promise<IAuthor> {
+    return await this.AuthorModel.findByIdAndDelete(id);
   }
 }

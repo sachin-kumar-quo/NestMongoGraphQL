@@ -10,11 +10,21 @@ type UserObject {
 }
 
 type BookObject {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  id: ID!
+  name: String!
+  publisher: String!
+  published: DateTime!
+  author: String!
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type AuthorObject {
+  id: ID!
+
   """Example field (placeholder)"""
   name: String!
 
@@ -29,9 +39,12 @@ type AuthorObject {
 }
 
 type Query {
-  user(id: String!): UserObject!
-  book(id: Int!): BookObject!
-  author(id: String!): AuthorObject!
+  findAllUsers: [UserObject!]!
+  findUser(id: String!): UserObject!
+  findAllBooks: [BookObject!]!
+  findBook(id: String!): BookObject!
+  findAllAuthors: [AuthorObject!]!
+  findAuthor(id: String!): AuthorObject!
 }
 
 type Mutation {
@@ -40,38 +53,44 @@ type Mutation {
   removeUser(id: String!): UserObject!
   createBook(createBookInput: CreateBookInput!): BookObject!
   updateBook(updateBookInput: UpdateBookInput!): BookObject!
-  removeBook(id: Int!): BookObject!
+  removeBook(id: String!): BookObject!
   createAuthor(createAuthorInput: CreateAuthorInput!): AuthorObject!
   updateAuthor(updateAuthorInput: UpdateAuthorInput!): AuthorObject!
   removeAuthor(id: String!): AuthorObject!
 }
 
 input CreateUserInput {
-  id: String!
+  id: ID!
   name: String!
   email: String!
   password: String!
 }
 
 input UpdateUserInput {
-  id: String!
+  id: ID!
   name: String!
   email: String!
   password: String!
 }
 
 input CreateBookInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  name: String!
+  publisher: String!
+  published: DateTime!
+  author: String!
 }
 
 input UpdateBookInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  name: String!
+  publisher: String!
+  published: DateTime!
+  author: String!
+  id: ID!
 }
 
 input CreateAuthorInput {
+  id: ID!
+
   """Example field (placeholder)"""
   name: String!
 
@@ -86,11 +105,9 @@ input CreateAuthorInput {
 }
 
 input UpdateAuthorInput {
+  id: ID!
   name: String!
   age: Int!
   phone: String!
   email: String!
-
-  """Author id"""
-  id: String!
 }

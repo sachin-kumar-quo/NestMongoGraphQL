@@ -1,26 +1,30 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateBookInput } from './inputs/create-book.input';
 import { UpdateBookInput } from './inputs/update-book.input';
+import { IBook } from './interfaces/book.interface';
 
 @Injectable()
 export class BookService {
-  create(createBookInput: CreateBookInput) {
-    return 'This action adds a new book';
+  constructor(@InjectModel('Book') private bookModel: Model<IBook>) {}
+  async create(createBookInput: CreateBookInput): Promise<IBook> {
+    return await new this.bookModel(createBookInput).save();
   }
 
-  findAll() {
-    return `This action returns all book`;
+  async findAll(): Promise<IBook[]> {
+    return await this.bookModel.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} book`;
+  async findOne(id: string): Promise<IBook> {
+    return await this.bookModel.findById(id);
   }
 
-  update(id: number, updateBookInput: UpdateBookInput) {
-    return `This action updates a #${id} book`;
+  async update(id: string, updateBookInput: UpdateBookInput): Promise<IBook> {
+    return await this.bookModel.findByIdAndUpdate(id, updateBookInput);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} book`;
+  async remove(id: string): Promise<IBook> {
+    return this.bookModel.findByIdAndDelete(id);
   }
 }

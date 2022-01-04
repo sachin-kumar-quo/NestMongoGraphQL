@@ -9,10 +9,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/nestbookstore'),
     GraphQLModule.forRoot({
       autoSchemaFile: 'schema.gql',
     }),
+    MongooseModule.forRoot('mongodb://localhost/nestbookstore'),
     UserModule,
     BookModule,
     AuthorModule,
