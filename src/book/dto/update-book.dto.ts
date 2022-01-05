@@ -7,7 +7,7 @@ export class UpdateBookObject extends PartialType(BookObject) {
   id: string;
 
   @Field()
-  name: string;
+  title: string;
 
   @Field()
   publisher: string;

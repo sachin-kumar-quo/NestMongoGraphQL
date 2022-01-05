@@ -6,7 +6,7 @@ export class BookObject {
   id: string;
 
   @Field()
-  name: string;
+  title: string;
 
   @Field()
   publisher: string;

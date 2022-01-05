@@ -11,7 +11,7 @@ type UserObject {
 
 type BookObject {
   id: ID!
-  name: String!
+  title: String!
   publisher: String!
   published: DateTime!
   author: String!
@@ -74,14 +74,14 @@ input UpdateUserInput {
 }
 
 input CreateBookInput {
-  name: String!
+  title: String!
   publisher: String!
   published: DateTime!
   author: String!
 }
 
 input UpdateBookInput {
-  name: String!
+  title: String!
   publisher: String!
   published: DateTime!
   author: String!
